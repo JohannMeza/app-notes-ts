@@ -1,0 +1,10 @@
+migrations
+node_modules
+build
+.eslintignore
+.eslintrc.cjs
+vite.config.ts
+/.history/
+/.husky/
+/.github/
+/src/assets/

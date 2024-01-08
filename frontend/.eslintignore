@@ -1,0 +1,15 @@
+#React
+node_modules
+build
+public
+template
+*-test.*
+src/shared/types
+clean-package.js
+jest.config.js
+/.history/
+/src/shared/types/
+/src/assets/
+.eslintignore
+.eslintrc.cjs
+vite.config.ts
