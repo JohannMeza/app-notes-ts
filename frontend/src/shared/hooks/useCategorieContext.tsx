@@ -1,11 +1,22 @@
 import { useContext } from 'react';
 import { CategorieContext } from '../contexts/CategorieContext';
-interface CategorieProps<T> { 
-  state: object, 
+import { CategoriesProps } from '@src/modules/dashboard/categories/main/main-types';
+import { NotesProps } from '@src/modules/dashboard/dashboard-types';
+interface CategorieProps { 
+  state: {
+    categories: CategoriesProps[]
+    notes: NotesProps[],
+    selectCategory: CategoriesProps
+  }, 
   action: {
-    handleRemoveCategorie: (prop: T) => void
-    handleEditCategorie: (prop: T) => void
-    handleAddCategorie: (prop: T) => void
+    handleRemoveCategorie: (prop: CategoriesProps) => void
+    handleEditCategorie: (prop: CategoriesProps) => void
+    handleAddCategorie: (prop: { categorie: string }) => void
+    
+    fetchCategories: () => Promise<void>
+    fetchNotes: () => Promise<void>
+
+    setSelectCategory: (prop: CategoriesProps) => void
   }
 }
-export const useCategorieContext = <T extends object>(): CategorieProps<T> => useContext(CategorieContext);
+export const useCategorieContext = (): CategorieProps => useContext(CategorieContext);

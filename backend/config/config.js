@@ -10,5 +10,6 @@ module.exports = {
     database: ValidarEntorno(process.env.APP_ENV) ? process.env.APP_DEV_DB_DATABASE   :   process.env.APP_PROD_DB_DATABASE,
     port:     ValidarEntorno(process.env.APP_ENV) ? process.env.APP_DEV_DB_PORT       :   process.env.APP_PROD_DB_PORT,
     env:      ValidarEntorno(process.env.APP_ENV),
-  }
+  },
+  tokenAuth:  ValidarEntorno(process.env.APP_ENV) ? process.env.APP_DEV_TOKEN_AUTH    :   process.env.APP_PROD_TOKEN_AUTH
 }

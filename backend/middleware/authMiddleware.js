@@ -1,14 +1,19 @@
 const jwt = require('jsonwebtoken');
 const { config } = require("dotenv");
+const { tokenAuth } = require('../config/config');
 config();
 
 const auth = async (req, res, next) => {
   try {
     const token = req.headers['authorization'];
-    const decoded = jwt.verify(token, process.env.APP_PROD_TOKEN_AUTH)
+    const decoded = jwt.verify(token, tokenAuth)
 
-    req.body = { ...req.body, ...decoded.user };
-    req.ID_USER = req.body.ID_USUARIOS;
+    req.body = { 
+      ...req.body, 
+      userId: decoded.user.id ,
+      username: decoded.user.username, 
+      password: decoded.user.password 
+    };
     next();
   } catch (err) {
     return res.status(err.status || 500).json({ ...err, status: 500 })

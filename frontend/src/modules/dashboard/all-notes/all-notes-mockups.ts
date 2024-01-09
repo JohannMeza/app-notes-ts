@@ -6,6 +6,7 @@ export const allNotesMockups: NotesProps[] = [
     note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an',
     createAt: 1554,
     updateAt: 1545,
+    archived: false,
     color: ColorsCardEnum.BLUE
   },
   {
@@ -13,6 +14,7 @@ export const allNotesMockups: NotesProps[] = [
     note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an',
     createAt: 1554,
     updateAt: 1545,
+    archived: false,
     color: ColorsCardEnum.GREEN
   },
   {
@@ -20,6 +22,7 @@ export const allNotesMockups: NotesProps[] = [
     note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an',
     createAt: 1554,
     updateAt: 1545,
+    archived: false,
     color: ColorsCardEnum.GREEN
   },
   {
@@ -27,6 +30,7 @@ export const allNotesMockups: NotesProps[] = [
     note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an',
     createAt: 1554,
     updateAt: 1545,
+    archived: false,
     color: ColorsCardEnum.ORANGE
   },
   {
@@ -34,6 +38,7 @@ export const allNotesMockups: NotesProps[] = [
     note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an',
     createAt: 1554,
     updateAt: 1545,
+    archived: false,
     color: ColorsCardEnum.PURPLE
   },
   {
@@ -41,6 +46,7 @@ export const allNotesMockups: NotesProps[] = [
     note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an',
     createAt: 1554,
     updateAt: 1545,
+    archived: false,
     color: ColorsCardEnum.RED
   },
 ];

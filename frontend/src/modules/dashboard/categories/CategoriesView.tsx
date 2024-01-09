@@ -5,7 +5,7 @@ import { MainView } from './main/MainView';
 
 export const CategoriesView: FC<PropsWithChildren> = () => {
   const [stateView, setStateView] = useState<ViewComponent>(ViewComponent.MAIN);
-  
+
   const View = {
     [ViewComponent.NOTES]: <NotesView setStateView={setStateView} />,
     [ViewComponent.MAIN]: <MainView setStateView={setStateView} />,

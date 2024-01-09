@@ -9,13 +9,13 @@ import { AuthContextProvider } from './shared/contexts/AuthContext';
 const App = (): React.ReactNode => (
   <ThemeProvider theme={configTheme(configTheme())}>
     <AuthContextProvider>
-      <NoteContextProvider>
-        <CategorieContextProvider>
+      <CategorieContextProvider>
+        <NoteContextProvider>
           <Box component="main">
             <IndexRouter />
           </Box>
-        </CategorieContextProvider>
-      </NoteContextProvider>
+        </NoteContextProvider>
+      </CategorieContextProvider>
     </AuthContextProvider>
   </ThemeProvider>
 );

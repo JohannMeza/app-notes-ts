@@ -1,12 +1,18 @@
 import { useContext } from 'react';
 import { NoteContext } from '../contexts/NoteContext';
-interface NoteProps<T> { 
-  state: object, 
+import { NotesProps } from '@src/modules/dashboard/dashboard-types';
+interface NoteProps { 
+  state: {
+    notes: NotesProps[]
+    archivedNotes: NotesProps[]
+  }, 
   action: {
-    handleRemoveNote: (prop: T) => void
-    handleArchiveNote: (prop: T) => void
-    handleEditNote: (prop: T) => void
-    handleAddNote: (prop: { getContents: () => void }) => void
+    handleRemoveNote: (prop: NotesProps) => void
+    handleEditNote: (prop: NotesProps) => void
+    handleAddNote: (prop: { getContents: () => { ops: [] } }, archived: boolean) => void
+
+    fetchAllNotes: () => Promise<void>
+    fetchArchivedNotes: () => Promise<void>
   }
 }
-export const useNoteContext = <T extends object>(): NoteProps<T> => useContext(NoteContext);
+export const useNoteContext = (): NoteProps => useContext(NoteContext);

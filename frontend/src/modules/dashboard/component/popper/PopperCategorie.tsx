@@ -12,7 +12,7 @@ export const PopperContain = styled(Box)(() => ({
   zIndex: 1000
 }));
 
-export const PopperCategorie: FC<CategoriesProps & { setCategorieEdit: (prop: CategoriesProps) => void }> = (props) => {
+export const PopperCategorie: FC<CategoriesProps & { handleChangeEdit: (prop: CategoriesProps) => void }> = (props) => {
   const [open, setOpen] = useState(false);
   const { action } = useCategorieContext();
   const anchorRef = useRef<HTMLDivElement >(null);
@@ -39,7 +39,7 @@ export const PopperCategorie: FC<CategoriesProps & { setCategorieEdit: (prop: Ca
     setOpen(false);
     e.stopPropagation();
     switch (act) {
-      case 1: props.setCategorieEdit(props);
+      case 1: props.handleChangeEdit(props);
         break;
       case 2: action.handleRemoveCategorie(props);
         break;

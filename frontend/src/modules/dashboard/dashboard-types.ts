@@ -9,6 +9,7 @@ export enum ColorsCardEnum {
 
 export interface NotesProps {
   id: number
+  archived: boolean
   note: string
   createAt: number
   updateAt: number

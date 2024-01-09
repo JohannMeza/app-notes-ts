@@ -2,24 +2,29 @@ import { FC, PropsWithChildren, createContext, useCallback, useEffect, useMemo, 
 import { APP_TOKEN, APP_URL } from '../constants/EnvConstants';
 import axios from 'axios';
 
-interface AuthContextType<T> {
+interface UserProps {
+  id: string,
+  username: string
+}
+
+interface AuthContextType {
   state: {
     isAuthenticated: boolean
-    user: T
+    user: UserProps
   }
   
   action: {
     login: (token: string) => void
-    setUser: (user: T) => void
+    setUser: (user: UserProps) => void
     logout: () => void
     access: () => void;
   }
 }
 
-export const AuthContext = createContext<AuthContextType<object>>({
+export const AuthContext = createContext<AuthContextType>({
   state: {
     isAuthenticated: false,
-    user: {}
+    user: { id: '', username: '' }
   },
   action: {
     login: () => {},
@@ -31,7 +36,7 @@ export const AuthContext = createContext<AuthContextType<object>>({
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem(APP_TOKEN) ? true : false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ id: '', username: '' });
   
   const access = async (): Promise<void> => { 
     const headers = { 
@@ -47,14 +52,15 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setUser(response.data);
     } catch (error) {
       setIsAuthenticated(false);
-      setUser({});
+      setUser({ id: '', username: '' });
+      localStorage.removeItem(APP_TOKEN);
     }
   };
 
   const logout = (): void => {
     localStorage.removeItem(APP_TOKEN);
     setIsAuthenticated(false);
-    setUser({});
+    setUser({ id: '', username: '' });
   };
 
   const login = useCallback((token: string) => {

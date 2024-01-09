@@ -1,18 +1,23 @@
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
-interface AuthContextType<T> {
+interface UserProps {
+  id: string,
+  username: string
+}
+
+interface AuthContextType {
   state: {
     isAuthenticated: boolean
-    user: T | object
+    user: UserProps
   }
   
   action: {
     login: (token: string) => void
-    setUser: (user: T | object) => void
+    setUser: (user: UserProps) => void
     logout: () => void
     access: () => void;
   }
 }
 
-export const useAuthContext = <T extends object>(): AuthContextType<T> => useContext(AuthContext);
+export const useAuthContext = (): AuthContextType => useContext(AuthContext);

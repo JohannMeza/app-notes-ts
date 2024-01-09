@@ -1,4 +1,4 @@
 export interface CategoriesProps {
-  id: number
+  id: number | null
   categorie: string
 }

@@ -1,31 +1,47 @@
 import { IconButton, Stack, Typography } from '@mui/material';
 import { Controls } from '@src/shared/components/Controls';
-import { FC, PropsWithChildren, ReactNode, useState } from 'react';
-import { allNotesMockups } from './all-notes-mockups';
+import { FC, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
 import { ColorsCardEnum, NotesProps } from '../dashboard-types';
 import { PopperNote } from '../component/popper/PopperNote';
-import { QuillAddNote, QuillEditNote } from '../component/quill/QuillNote';
+import { QuillAddNote, QuillEditNote, QuillReadNote } from '../component/quill/QuillNote';
 import { ButtonColor, ButtonColorClose, ButtonContain, GridNotesContain, ViewContain } from '../dashboard-styles';
+import { useNoteContext } from '@src/shared/hooks/useNoteContext';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import 'quill/dist/quill.snow.css';
+import { useCategorieContext } from '@src/shared/hooks/useCategorieContext';
 
 export const AllNotesView: FC<PropsWithChildren> = () => {
+  const { state, action } = useNoteContext();
+  const { action: actionCategorie } = useCategorieContext();
   const [noteEdit, setNoteEdit] = useState<NotesProps>();  
   const [openColor, setOpenColor] = useState({ state: false, idNote: 0 });  
   const [openAdd, setOpenAdd] = useState(false);
 
   const handleDblClick = (dataNote: NotesProps): void => setNoteEdit(dataNote);
   const handleEditNote = (dataNote: NotesProps): void => setNoteEdit(dataNote);
+  const handleChangeColor = (dataNote: NotesProps): void => {
+    action.handleEditNote(dataNote);
+    setOpenColor({ state: false, idNote: 0 });
+  };
   const handleAddNote = (): void => setOpenAdd(true);
+  const handleCloseAddNote = (): void => setOpenAdd(false);
+  const handleCloseEditNote = (): void => setNoteEdit(undefined);
 
   const handleToggleColor = (idNote: number): void => setOpenColor({ state: !openColor.state, idNote });
   
   const Note = (el: NotesProps): ReactNode => (
     noteEdit?.id === el.id 
-      ? <QuillEditNote {...el} /> 
-      : <Typography variant='body1' padding="15px">{el.note}</Typography>
+      ? <QuillEditNote {...el} handleCloseEditNote={handleCloseEditNote} /> 
+      : <QuillReadNote {...el} />
   );
+
+  useEffect(() => {
+    action.fetchAllNotes();
+    actionCategorie.setSelectCategory({ categorie: '', id: null });
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ViewContain>
@@ -42,11 +58,14 @@ export const AllNotesView: FC<PropsWithChildren> = () => {
             color={ColorsCardEnum.BLUE} 
             onDoubleClick={() => {}}
           >
-            <QuillAddNote /> 
+            <QuillAddNote  
+              handleCloseAddNote={handleCloseAddNote} 
+              archived={false}
+            /> 
           </Controls.Card>
         }
         {
-          allNotesMockups.map((el) => (
+          state.notes.map((el) => (
             <Controls.Card 
               color={el.color} 
               key={el.id}
@@ -58,12 +77,30 @@ export const AllNotesView: FC<PropsWithChildren> = () => {
                 <ButtonColorClose onClick={() => handleToggleColor(0)}>
                   <CloseIcon sx={{ color: '#fff' }} />
                 </ButtonColorClose>
-                <ButtonColor colorcard={ColorsCardEnum.BLUE}></ButtonColor>
-                <ButtonColor colorcard={ColorsCardEnum.GREEN}></ButtonColor>
-                <ButtonColor colorcard={ColorsCardEnum.ORANGE}></ButtonColor>
-                <ButtonColor colorcard={ColorsCardEnum.PURPLE}></ButtonColor>
-                <ButtonColor colorcard={ColorsCardEnum.RED}></ButtonColor>
-                <ButtonColor colorcard={ColorsCardEnum.YELLOW}></ButtonColor>
+                <ButtonColor 
+                  onClick={() => handleChangeColor({ ...el, color: ColorsCardEnum.BLUE })} 
+                  colorcard={ColorsCardEnum.BLUE}
+                ></ButtonColor>
+                <ButtonColor 
+                  onClick={() => handleChangeColor({ ...el, color: ColorsCardEnum.GREEN })} 
+                  colorcard={ColorsCardEnum.GREEN}
+                ></ButtonColor>
+                <ButtonColor 
+                  onClick={() => handleChangeColor({ ...el, color: ColorsCardEnum.ORANGE })} 
+                  colorcard={ColorsCardEnum.ORANGE}
+                ></ButtonColor>
+                <ButtonColor 
+                  onClick={() => handleChangeColor({ ...el, color: ColorsCardEnum.PURPLE })} 
+                  colorcard={ColorsCardEnum.PURPLE}
+                ></ButtonColor>
+                <ButtonColor 
+                  onClick={() => handleChangeColor({ ...el, color: ColorsCardEnum.RED })} 
+                  colorcard={ColorsCardEnum.RED}
+                ></ButtonColor>
+                <ButtonColor 
+                  onClick={() => handleChangeColor({ ...el, color: ColorsCardEnum.YELLOW })} 
+                  colorcard={ColorsCardEnum.YELLOW}
+                ></ButtonColor>
               </ButtonContain>
               <PopperNote 
                 handleToggleColor={handleToggleColor}
